@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import re
+
 # Day 1 : https://adventofcode.com/2023/day/1
 # Problem 1
 
@@ -37,6 +38,7 @@ import re
 
 # What is the sum of all of the calibration values?
 
+
 def solve(filename, solver):
     """
     filename: is a string
@@ -52,18 +54,29 @@ def solve(filename, solver):
     return sum
 
 
-
 def solver_1(line):
-    return [*filter(lambda x: x <= '9' and x >= '0', line)]
+    return [*filter(lambda x: x <= "9" and x >= "0", line)]
 
-text_to_number = {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9" }
+
+text_to_number = {
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "four": "4",
+    "five": "5",
+    "six": "6",
+    "seven": "7",
+    "eight": "8",
+    "nine": "9",
+}
+
 
 def solver_2(line):
-    """ input: a string of line
-        output: a list of number representation strings
+    """input: a string of line
+    output: a list of number representation strings
 
-        E.g.,
-        solver_2("one3twone") => ["1", "3", "2", "1"]
+    E.g.,
+    solver_2("one3twone") => ["1", "3", "2", "1"]
     """
     search_pattern = "(?=([0-9]|one|two|three|four|five|six|seven|eight|nine))"
     matched_numbers = re.findall(search_pattern, line)
@@ -71,13 +84,17 @@ def solver_2(line):
 
     return [*map(convert_function, matched_numbers)]
 
+
 if __name__ == "__main__":
     # test with the example string
-    test_cases = [("problem1: test1", "example1_input", solver_1, 142), ("problem1: test2", "question1_input", solver_1, 54990),
-                  ("problem2: test1", "example2_input", solver_2, 281), ("problem2: test2", "question1_input", solver_2, 54473)
+    test_cases = [
+        ("problem1: test1", "01_example1_input", solver_1, 142),
+        ("problem1: test2", "question1_input", solver_1, 54990),
+        ("problem2: test1", "01_example2_input", solver_2, 281),
+        ("problem2: test2", "question1_input", solver_2, 54473),
     ]
 
-    for (desc, input_file, solver, expected_output) in test_cases:
+    for desc, input_file, solver, expected_output in test_cases:
         print(desc)
         actual = solve(input_file, solver)
         assert expected_output == actual, f"Expected: {expected_output}, Got: {actual}"
